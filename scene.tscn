@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://cgdu48lhsnixe"]
+
+[ext_resource type="Script" uid="uid://bffshoai0tqew" path="res://player.gd" id="1_ulcgi"]
+[ext_resource type="Script" uid="uid://cwwyeula204k1" path="res://performance_overlay.gd" id="2_nxogm"]
+[ext_resource type="Script" uid="uid://wdil32b5bj3b" path="res://speedometer.gd" id="3_3253y"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_drvgu"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ulcgi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_drvgu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drvgu"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulcgi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_drvgu"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ulcgi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3253y"]
+
+[sub_resource type="Sky" id="Sky_drvgu"]
+sky_material = SubResource("ProceduralSkyMaterial_3253y")
+process_mode = 1
+
+[sub_resource type="Environment" id="Environment_ulcgi"]
+background_mode = 2
+sky = SubResource("Sky_drvgu")
+ambient_light_source = 3
+ssil_enabled = true
+sdfgi_enabled = true
+
+[node name="Root" type="Node3D" unique_id=1104902297]
+
+[node name="Terrain" type="Node" parent="." unique_id=1600461140]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Terrain" unique_id=140285146]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/StaticBody3D" unique_id=165965527]
+shape = SubResource("WorldBoundaryShape3D_drvgu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain" unique_id=1684010539]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ulcgi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain" unique_id=368943722]
+transform = Transform3D(0.6745343, 0, 0.73824346, 0, 1, 0, -0.73824346, 0, 0.6745343, 0, 0.7410538, -1.7750616)
+mesh = SubResource("BoxMesh_drvgu")
+surface_material_override/0 = SubResource("StandardMaterial3D_drvgu")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Terrain" unique_id=1705774586]
+transform = Transform3D(-0.09000686, 0, 0.9959411, 0, 1, 0, -0.9959411, 0, -0.09000686, -1.3104277, 1.4821076, -2.9724016)
+mesh = SubResource("BoxMesh_drvgu")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Terrain" unique_id=1239146637]
+transform = Transform3D(-0.98379743, 0, -0.17928305, 0, 1, 0, 0.17928305, 0, -0.98379743, 1.458643, 1.0680819, -1.7945297)
+mesh = SubResource("BoxMesh_drvgu")
+surface_material_override/0 = SubResource("StandardMaterial3D_ulcgi")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=283533739]
+transform = Transform3D(0.53008884, -0.84666574, -0.046508454, -0.35300598, -0.27021822, 0.89575046, -0.7709687, -0.45840958, -0.4421177, 2.2469366, 8.18891, -5.086196)
+shadow_enabled = true
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=83115313 node_paths=PackedStringArray("head")]
+script = ExtResource("1_ulcgi")
+head = NodePath("Head")
+mouse_sensitivity = 0.98
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=128333632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_drvgu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=273003767]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_ulcgi")
+
+[node name="Head" type="Node3D" parent="Player" unique_id=1811788082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head" unique_id=1717705848]
+environment = SubResource("Environment_ulcgi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1679698098]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PerformanceOverlay" type="Label" parent="VBoxContainer" unique_id=1478559351]
+layout_mode = 2
+script = ExtResource("2_nxogm")
+
+[node name="Speedometer" type="Label" parent="VBoxContainer" unique_id=945793994 node_paths=PackedStringArray("player")]
+layout_mode = 2
+script = ExtResource("3_3253y")
+player = NodePath("../../Player")
