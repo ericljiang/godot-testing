@@ -5,10 +5,7 @@ extends CharacterBody3D
 
 @export_group("Settings")
 @export_range(0, 10, 0.01) var mouse_sensitivity: float = 1.0
-
-# Movement parameters
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+@export var movement_type: MovementType = MovementType.CS
 
 # Mouselook parameters
 const MAX_PITCH = deg_to_rad(90)
@@ -23,12 +20,34 @@ const DEGREES_PER_UNIT = 0.022
 const RADS_PER_UNIT = deg_to_rad(DEGREES_PER_UNIT)
 
 # Movement parameters
-## 320 HU/s = 20 ft/s = 6.096 m/s
-const MAX_GROUND_SPEED := 6.096
-## 30 HU/s = 1.875 ft/s = 0.5715 m/s
-const MAX_AIR_SPEED := 0.5715
+# 16 HU = 1 ft
+# 1 ft = 0.3048 m
+# x_m = x_hu / 16 * 0.3048 = x_hu * 0.01905
+## Factor to convert Hammer units to meters
+const HU_TO_M := 0.01905
+# https://developer.valvesoftware.com/wiki/List_of_Counter-Strike_2_console_commands_and_variables
+const JUMP_VELOCITY = 301.993 * HU_TO_M
+## https://developer.valvesoftware.com/wiki/Sv_friction
+const FRICTION := 5.2
+enum MovementType { CS, QUAKE, TF2_SOLDIER }
+## sv_stopspeed
+const STOP_SPEEDS: Dictionary[MovementType, float] = {
+	MovementType.CS: 80 * HU_TO_M,
+	MovementType.QUAKE: 100 * HU_TO_M,
+	MovementType.TF2_SOLDIER: 100 * HU_TO_M,
+}
+var STOP_SPEED := STOP_SPEEDS[movement_type]
+const MAX_GROUND_SPEEDS: Dictionary[MovementType, float] = {
+	# https://counterstrike.fandom.com/wiki/Movement#Speed
+	MovementType.CS: 250 * HU_TO_M,
+	MovementType.QUAKE: 320 * HU_TO_M,
+	# https://wiki.teamfortress.com/wiki/Classes#Speed
+	MovementType.TF2_SOLDIER: 240 * HU_TO_M,
+}
+var MAX_GROUND_SPEED := MAX_GROUND_SPEEDS[movement_type]
+const MAX_AIR_SPEED := 30 * HU_TO_M
 ## Accelerate from zero to max speed in 0.1 s
-const MAX_ACCEL := MAX_GROUND_SPEED * 10
+var MAX_ACCEL := MAX_GROUND_SPEED * 10
 
 func _ready() -> void:
 	Input.set_use_accumulated_input(false)
@@ -59,8 +78,8 @@ func _unhandled_input(event: InputEvent) -> void:
 # Handles aim look with the mouse.
 # Based on https://yosoyfreeman.github.io/article/godot/tutorial/achieving-better-mouse-input-in-godot-4-the-perfect-camera-controller
 func aim_look(event: InputEventMouseMotion)-> void:
-	var viewport_transform: Transform2D = get_tree().root.get_final_transform()
-	var motion: Vector2 = (event.xformed_by(viewport_transform) as InputEventMouseMotion).relative
+	var viewport_transform := get_tree().root.get_final_transform()
+	var motion := (event.xformed_by(viewport_transform) as InputEventMouseMotion).relative
 
 	motion *= RADS_PER_UNIT
 	motion *= mouse_sensitivity
@@ -92,16 +111,18 @@ func _physics_process(delta: float) -> void:
 	# Based on https://www.youtube.com/watch?v=v3zT3Z5apaM
 	if is_on_floor():
 		# Handle jump.
-		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 
 		# Apply friction
 		# TODO account for moving platform
-		## https://developer.valvesoftware.com/wiki/Sv_friction
-		const FRICTION := 5.2
 		var speed := velocity.length()
 		if speed > 0:
-			var friction_deceleration: float = max(speed, 2) * FRICTION
+			# Deceleration due to friction is proportional to the current speed,
+			# but when speed is smaller than STOP_SPEED, don't make the force of
+			# friction any smaller to avoid a really slow sliding stop. This is
+			# similar to static friction in real life.
+			var friction_deceleration: float = max(speed, STOP_SPEED) * FRICTION
 			# Scale down the velocity by an amount that is equivalent to
 			# subtracting the friction_deceleration applied over delta time.
 			# I don't know why this ratio becomes > 1.

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dpascgnyrv3po"]
+
+[ext_resource type="Material" uid="uid://dmylxc4bm10u6" path="res://orange_placeholder_texture.tres" id="1_4ghxh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u3cyc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m7jmp"]
+material = ExtResource("1_4ghxh")
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=18044455]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=658246145]
+shape = SubResource("BoxShape3D_u3cyc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1649174106]
+mesh = SubResource("BoxMesh_m7jmp")

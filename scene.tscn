@@ -1,23 +1,33 @@
 [gd_scene format=3 uid="uid://cgdu48lhsnixe"]
 
+[ext_resource type="Material" uid="uid://ct74r6be4eh5u" path="res://gray_placeholder_texture.tres" id="1_u3cyc"]
 [ext_resource type="Script" uid="uid://bffshoai0tqew" path="res://player.gd" id="1_ulcgi"]
+[ext_resource type="PackedScene" uid="uid://dpascgnyrv3po" path="res://orange_box.tscn" id="2_m7jmp"]
 [ext_resource type="Script" uid="uid://cwwyeula204k1" path="res://performance_overlay.gd" id="2_nxogm"]
 [ext_resource type="Script" uid="uid://wdil32b5bj3b" path="res://speedometer.gd" id="3_3253y"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_drvgu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ulcgi"]
+lightmap_size_hint = Vector2i(12, 12)
+material = ExtResource("1_u3cyc")
+size = Vector2(20, 20)
 
 [sub_resource type="BoxMesh" id="BoxMesh_drvgu"]
+material = ExtResource("1_u3cyc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drvgu"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulcgi"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_drvgu"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_m7jmp"]
+height = 1.68
+radius = 0.2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ulcgi"]
+radius = 0.3
+height = 1.68
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3253y"]
 
@@ -32,6 +42,12 @@ ambient_light_source = 3
 ssil_enabled = true
 sdfgi_enabled = true
 
+[sub_resource type="SystemFont" id="SystemFont_m7jmp"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="LabelSettings" id="LabelSettings_y2354"]
+font = SubResource("SystemFont_m7jmp")
+
 [node name="Root" type="Node3D" unique_id=1104902297]
 
 [node name="Terrain" type="Node" parent="." unique_id=1600461140]
@@ -42,7 +58,6 @@ sdfgi_enabled = true
 shape = SubResource("WorldBoundaryShape3D_drvgu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain" unique_id=1684010539]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_ulcgi")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Terrain" unique_id=368943722]
@@ -59,6 +74,36 @@ transform = Transform3D(-0.98379743, 0, -0.17928305, 0, 1, 0, 0.17928305, 0, -0.
 mesh = SubResource("BoxMesh_drvgu")
 surface_material_override/0 = SubResource("StandardMaterial3D_ulcgi")
 
+[node name="OrangeBox" parent="Terrain" unique_id=18044455 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1)
+
+[node name="OrangeBox3" parent="Terrain" unique_id=946780454 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(0.5, 0, 0, 0, 2, 0, 0, 0, 2, -2.75, 1.5, -0.5)
+
+[node name="OrangeBox2" parent="Terrain" unique_id=735681619 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
+
+[node name="OrangeBox4" parent="Terrain" unique_id=2092809902 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -1)
+
+[node name="OrangeBox5" parent="Terrain" unique_id=1885715679 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, -1)
+
+[node name="OrangeBox6" parent="Terrain" unique_id=1540743870 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, 0)
+
+[node name="OrangeBox7" parent="Terrain" unique_id=1526202345 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.5, 1)
+
+[node name="OrangeBox8" parent="Terrain" unique_id=1976004605 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, -1)
+
+[node name="OrangeBox9" parent="Terrain" unique_id=154515203 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 0)
+
+[node name="OrangeBox10" parent="Terrain" unique_id=1695276876 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 1)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=283533739]
 transform = Transform3D(0.53008884, -0.84666574, -0.046508454, -0.35300598, -0.27021822, 0.89575046, -0.7709687, -0.45840958, -0.4421177, 2.2469366, 8.18891, -5.086196)
 shadow_enabled = true
@@ -67,13 +112,14 @@ shadow_enabled = true
 script = ExtResource("1_ulcgi")
 head = NodePath("Head")
 mouse_sensitivity = 0.98
+movement_type = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=128333632]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_drvgu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 0)
+shape = SubResource("CylinderShape3D_m7jmp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=273003767]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 0)
 mesh = SubResource("CapsuleMesh_ulcgi")
 
 [node name="Head" type="Node3D" parent="Player" unique_id=1811788082]
@@ -90,7 +136,29 @@ offset_bottom = 40.0
 layout_mode = 2
 script = ExtResource("2_nxogm")
 
-[node name="Speedometer" type="Label" parent="VBoxContainer" unique_id=945793994 node_paths=PackedStringArray("player")]
+[node name="CrosshairContainer" type="CenterContainer" parent="." unique_id=251507286]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Label" parent="CrosshairContainer" unique_id=43144539]
 layout_mode = 2
+text = "+"
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=546396502]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1178969353]
+layout_mode = 2
+
+[node name="Speedometer" type="Label" parent="CenterContainer/VBoxContainer" unique_id=945793994 node_paths=PackedStringArray("player")]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_y2354")
 script = ExtResource("3_3253y")
-player = NodePath("../../Player")
+player = NodePath("../../../Player")
