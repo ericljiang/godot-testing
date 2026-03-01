@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 @export_group("Nodes")
 @export var head: Node3D
@@ -50,9 +51,14 @@ const MAX_AIR_SPEED := 30 * HU_TO_M
 var MAX_ACCEL := MAX_GROUND_SPEED * 10
 
 func _ready() -> void:
+	assert(head != null, "ERROR: `head` not assigned a node value.");
 	Input.set_use_accumulated_input(false)
-	if head == null:
-		assert(head != null, "ERROR: `head` not assigned a node value.");
+	
+func reset_movement_parameters() -> void:
+	STOP_SPEED = STOP_SPEEDS[movement_type]
+	MAX_GROUND_SPEED = MAX_GROUND_SPEEDS[movement_type]
+	MAX_ACCEL = MAX_GROUND_SPEED * 10
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	match Input.mouse_mode:

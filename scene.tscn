@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dpascgnyrv3po" path="res://orange_box.tscn" id="2_m7jmp"]
 [ext_resource type="Script" uid="uid://cwwyeula204k1" path="res://performance_overlay.gd" id="2_nxogm"]
 [ext_resource type="Script" uid="uid://wdil32b5bj3b" path="res://speedometer.gd" id="3_3253y"]
+[ext_resource type="Script" uid="uid://b663tvvrrui3v" path="res://button.gd" id="3_y2354"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_drvgu"]
 
@@ -20,6 +21,17 @@ material = ExtResource("1_u3cyc")
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulcgi"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ni31j"]
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2354"]
+albedo_color = Color(0.6938056, 6.136671e-06, 3.465414e-06, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y2354"]
+material = SubResource("StandardMaterial3D_y2354")
+top_radius = 0.4
+height = 0.1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_m7jmp"]
 height = 1.68
@@ -44,6 +56,7 @@ sdfgi_enabled = true
 
 [sub_resource type="SystemFont" id="SystemFont_m7jmp"]
 font_names = PackedStringArray("Monospace")
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_y2354"]
 font = SubResource("SystemFont_m7jmp")
@@ -104,6 +117,61 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 0)
 [node name="OrangeBox10" parent="Terrain" unique_id=1695276876 instance=ExtResource("2_m7jmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 1)
 
+[node name="Buttons" type="Node3D" parent="Terrain" unique_id=811561867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="CSButton" type="Area3D" parent="Terrain/Buttons" unique_id=1570847594 node_paths=PackedStringArray("player")]
+script = ExtResource("3_y2354")
+player = NodePath("../../../Player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Buttons/CSButton" unique_id=400074800]
+shape = SubResource("CylinderShape3D_ni31j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/Buttons/CSButton" unique_id=673085748]
+mesh = SubResource("CylinderMesh_y2354")
+
+[node name="Label3D" type="Label3D" parent="Terrain/Buttons/CSButton" unique_id=1993079180]
+transform = Transform3D(-1, -8.742278e-08, -3.821371e-15, 0, -4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, 0, 0.08, 0)
+text = "CS2
+movement
+params"
+
+[node name="QuakeButton" type="Area3D" parent="Terrain/Buttons" unique_id=1642698509 node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+script = ExtResource("3_y2354")
+player = NodePath("../../../Player")
+movement_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Buttons/QuakeButton" unique_id=1331920175]
+shape = SubResource("CylinderShape3D_ni31j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/Buttons/QuakeButton" unique_id=1240934471]
+mesh = SubResource("CylinderMesh_y2354")
+
+[node name="Label3D" type="Label3D" parent="Terrain/Buttons/QuakeButton" unique_id=11673216]
+transform = Transform3D(-1, -1.509958e-07, -6.600236e-15, 0, -4.371139e-08, 1, -1.509958e-07, 1, 4.371139e-08, 0, 0.08, 0)
+text = "Quake
+movement
+params"
+
+[node name="SoldierButton" type="Area3D" parent="Terrain/Buttons" unique_id=639796666 node_paths=PackedStringArray("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+script = ExtResource("3_y2354")
+player = NodePath("../../../Player")
+movement_type = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/Buttons/SoldierButton" unique_id=1389964162]
+shape = SubResource("CylinderShape3D_ni31j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/Buttons/SoldierButton" unique_id=1973600571]
+mesh = SubResource("CylinderMesh_y2354")
+
+[node name="Label3D" type="Label3D" parent="Terrain/Buttons/SoldierButton" unique_id=999373298]
+transform = Transform3D(-1, -1.509958e-07, -6.600236e-15, 0, -4.371139e-08, 1, -1.509958e-07, 1, 4.371139e-08, 0, 0.08, 0)
+text = "TF2 soldier
+movement
+params"
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=283533739]
 transform = Transform3D(0.53008884, -0.84666574, -0.046508454, -0.35300598, -0.27021822, 0.89575046, -0.7709687, -0.45840958, -0.4421177, 2.2469366, 8.18891, -5.086196)
 shadow_enabled = true
@@ -112,7 +180,6 @@ shadow_enabled = true
 script = ExtResource("1_ulcgi")
 head = NodePath("Head")
 mouse_sensitivity = 0.98
-movement_type = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=128333632]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 0)
