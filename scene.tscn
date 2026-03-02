@@ -12,7 +12,7 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_ulcgi"]
 lightmap_size_hint = Vector2i(12, 12)
 material = ExtResource("1_u3cyc")
-size = Vector2(20, 20)
+size = Vector2(100, 100)
 
 [sub_resource type="BoxMesh" id="BoxMesh_drvgu"]
 material = ExtResource("1_u3cyc")
@@ -78,10 +78,6 @@ transform = Transform3D(0.6745343, 0, 0.73824346, 0, 1, 0, -0.73824346, 0, 0.674
 mesh = SubResource("BoxMesh_drvgu")
 surface_material_override/0 = SubResource("StandardMaterial3D_drvgu")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Terrain" unique_id=1705774586]
-transform = Transform3D(-0.09000686, 0, 0.9959411, 0, 1, 0, -0.9959411, 0, -0.09000686, -1.3104277, 1.4821076, -2.9724016)
-mesh = SubResource("BoxMesh_drvgu")
-
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Terrain" unique_id=1239146637]
 transform = Transform3D(-0.98379743, 0, -0.17928305, 0, 1, 0, 0.17928305, 0, -0.98379743, 1.458643, 1.0680819, -1.7945297)
 mesh = SubResource("BoxMesh_drvgu")
@@ -116,6 +112,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 0)
 
 [node name="OrangeBox10" parent="Terrain" unique_id=1695276876 instance=ExtResource("2_m7jmp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, 1)
+
+[node name="OrangeBox11" parent="Terrain" unique_id=592199925 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, 0, 0, 0, 3, -5, 0, 3)
+
+[node name="OrangeBox12" parent="Terrain" unique_id=140068653 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(2.1213202, -2.1213202, 0, 2.1213202, 2.1213202, 0, 0, 0, 3, -5, 0, 6)
+
+[node name="OrangeBox13" parent="Terrain" unique_id=475494091 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(0, -9, 0, 7.7942314, 0, -4.500001, 4.500001, 0, 7.7942295, 2.3933983, -1.6824248, -9)
 
 [node name="Buttons" type="Node3D" parent="Terrain" unique_id=811561867]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
@@ -172,11 +177,24 @@ text = "TF2 soldier
 movement
 params"
 
+[node name="OrangeBox14" parent="Terrain" unique_id=2097643734 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(-0.2893269, -0.28932667, -2.971966, 2.101497, 2.101497, -0.4091698, 2.1213202, -2.1213202, -1.552182e-07, -5.124029, 0.20128071, -10)
+
+[node name="OrangeBox16" parent="Terrain" unique_id=14107502 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(-0.49852395, -0.4985237, -2.9159813, 2.0619097, 2.0619097, -0.70501906, 2.12132, -2.12132, -1.7916712e-07, -4.6253386, 0.29186046, -10)
+
+[node name="OrangeBox17" parent="Terrain" unique_id=1487496770 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(-0.69045925, -0.690459, -2.8366406, 2.0058076, 2.0058076, -0.97645676, 2.12132, -2.12132, -2.4099214e-07, -4.309085, 0.33664227, -10)
+
+[node name="OrangeBox15" parent="Terrain" unique_id=1183967258 instance=ExtResource("2_m7jmp")]
+transform = Transform3D(-9.2725855e-08, 9.2725855e-08, -3, 2.1213202, 2.1213202, 0, 2.1213202, -2.1213202, -1.3113416e-07, -8, 0, -10)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=283533739]
 transform = Transform3D(0.53008884, -0.84666574, -0.046508454, -0.35300598, -0.27021822, 0.89575046, -0.7709687, -0.45840958, -0.4421177, 2.2469366, 8.18891, -5.086196)
 shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=83115313 node_paths=PackedStringArray("head")]
+floor_max_angle = 0.7679449
 script = ExtResource("1_ulcgi")
 head = NodePath("Head")
 mouse_sensitivity = 0.98
