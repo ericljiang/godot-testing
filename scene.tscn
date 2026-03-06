@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b663tvvrrui3v" path="res://button.gd" id="3_y2354"]
 [ext_resource type="Script" uid="uid://cnokv2ftd46ld" path="res://mouse_sensitivity_setting.gd" id="7_ni31j"]
 [ext_resource type="Script" uid="uid://b0o4v4h7mk8eo" path="res://pause_menu.gd" id="7_xlvrw"]
+[ext_resource type="Script" uid="uid://cjldmdedgf535" path="res://movement_type_option_button.gd" id="9_73fnb"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_drvgu"]
 
@@ -29,6 +30,8 @@ height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2354"]
 albedo_color = Color(0.6938056, 6.136671e-06, 3.465414e-06, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_y2354"]
 material = SubResource("StandardMaterial3D_y2354")
@@ -296,8 +299,12 @@ label_settings = SubResource("LabelSettings_ni31j")
 layout_mode = 2
 text = "RESUME"
 
+[node name="HSeparator" type="HSeparator" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1093617910]
+layout_mode = 2
+
 [node name="MouseSensitivitySetting" type="VBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1745008920 node_paths=PackedStringArray("slider", "input", "player")]
 layout_mode = 2
+tooltip_text = "Same scale as Source engine"
 script = ExtResource("7_ni31j")
 slider = NodePath("HBoxContainer/HSlider")
 input = NodePath("HBoxContainer/SpinBox")
@@ -314,6 +321,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Same scale as Source engine"
 min_value = 0.01
 max_value = 10.0
 step = 0.01
@@ -321,11 +329,35 @@ value = 0.01
 
 [node name="SpinBox" type="SpinBox" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MouseSensitivitySetting/HBoxContainer" unique_id=2088989789]
 layout_mode = 2
+tooltip_text = "Same scale as Source engine"
 min_value = 0.01
 max_value = 10.0
 step = 0.01
 value = 0.01
 custom_arrow_step = 0.1
+
+[node name="MovementTypeSetting" type="VBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=71031511]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MovementTypeSetting" unique_id=770193871]
+layout_mode = 2
+text = "Movement type"
+
+[node name="OptionButton" type="OptionButton" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MovementTypeSetting" unique_id=1102535922 node_paths=PackedStringArray("player")]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Quake"
+popup/item_0/id = 0
+popup/item_1/text = "CS"
+popup/item_1/id = 1
+popup/item_2/text = "TF2 Soldier"
+popup/item_2/id = 2
+script = ExtResource("9_73fnb")
+player = NodePath("../../../../../../Player")
+
+[node name="HSeparator2" type="HSeparator" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=209021107]
+layout_mode = 2
 
 [node name="QuitButton" type="Button" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1635411788]
 layout_mode = 2

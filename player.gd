@@ -55,21 +55,16 @@ func _ready() -> void:
 	Input.set_use_accumulated_input(false)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+# TODO make this automatic when movement_type changes
 func reset_movement_parameters() -> void:
 	STOP_SPEED = STOP_SPEEDS[movement_type]
 	MAX_GROUND_SPEED = MAX_GROUND_SPEEDS[movement_type]
 	MAX_ACCEL = MAX_GROUND_SPEED * 10
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		aim_look(event as InputEventMouseMotion)
-	#match Input.mouse_mode:
-		#Input.MOUSE_MODE_CAPTURED:
-			#match event:
-				#var mm when event is InputEventMouseMotion:
-					#aim_look(mm as InputEventMouseMotion)
-						
+
 # Handles aim look with the mouse.
 # Based on https://yosoyfreeman.github.io/article/godot/tutorial/achieving-better-mouse-input-in-godot-4-the-perfect-camera-controller
 func aim_look(event: InputEventMouseMotion)-> void:
