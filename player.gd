@@ -53,7 +53,8 @@ var MAX_ACCEL := MAX_GROUND_SPEED * 10
 func _ready() -> void:
 	assert(head != null, "ERROR: `head` not assigned a node value.");
 	Input.set_use_accumulated_input(false)
-	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func reset_movement_parameters() -> void:
 	STOP_SPEED = STOP_SPEEDS[movement_type]
 	MAX_GROUND_SPEED = MAX_GROUND_SPEEDS[movement_type]
@@ -61,25 +62,13 @@ func reset_movement_parameters() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	match Input.mouse_mode:
-		Input.MOUSE_MODE_VISIBLE:
-			match event:
-				var mb when event is InputEventMouseButton:
-					var button_index := (mb as InputEventMouseButton).button_index
-					print("Button: ", button_index)
-					match button_index:
-						1:
-							Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-				var k when event is InputEventKey:
-					if (k as InputEventKey).is_action_pressed("ui_cancel"):
-						get_tree().quit()
-		Input.MOUSE_MODE_CAPTURED:
-			match event:
-				var mm when event is InputEventMouseMotion:
-					aim_look(mm as InputEventMouseMotion)
-				var k when event is InputEventKey:
-					if (k as InputEventKey).is_action_pressed("ui_cancel"):
-						Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if event is InputEventMouseMotion:
+		aim_look(event as InputEventMouseMotion)
+	#match Input.mouse_mode:
+		#Input.MOUSE_MODE_CAPTURED:
+			#match event:
+				#var mm when event is InputEventMouseMotion:
+					#aim_look(mm as InputEventMouseMotion)
 						
 # Handles aim look with the mouse.
 # Based on https://yosoyfreeman.github.io/article/godot/tutorial/achieving-better-mouse-input-in-godot-4-the-perfect-camera-controller
@@ -164,3 +153,6 @@ func _physics_process(delta: float) -> void:
 			velocity += add_speed * wish_direction
 
 	move_and_slide()
+	
+	#if Input.is_action_just_pressed("crouch"):
+		
