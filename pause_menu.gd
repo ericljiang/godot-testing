@@ -6,8 +6,13 @@ extends Control
 func _ready() -> void:
 	assert(resume_button != null)
 	assert(quit_button != null)
+	
 	resume_button.pressed.connect(unpause)
 	quit_button.pressed.connect(quit)
+	
+	resume_button.text += " (%s)" % InputMap.action_get_events("ui_cancel")[0].as_text()
+	
+	unpause()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):

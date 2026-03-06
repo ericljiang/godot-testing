@@ -63,6 +63,13 @@ subpixel_positioning = 0
 [sub_resource type="LabelSettings" id="LabelSettings_y2354"]
 font = SubResource("SystemFont_m7jmp")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xlvrw"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 50.0
+expand_margin_top = 20.0
+expand_margin_right = 50.0
+expand_margin_bottom = 20.0
+
 [sub_resource type="LabelSettings" id="LabelSettings_ni31j"]
 font_size = 44
 
@@ -254,7 +261,6 @@ script = ExtResource("3_3253y")
 player = NodePath("../../../Player")
 
 [node name="PauseMenu" type="Control" parent="." unique_id=1434869444 node_paths=PackedStringArray("resume_button", "quit_button")]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -262,8 +268,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_xlvrw")
-resume_button = NodePath("CenterContainer/VBoxContainer/ResumeButton")
-quit_button = NodePath("CenterContainer/VBoxContainer/QuitButton")
+resume_button = NodePath("CenterContainer/PanelContainer/VBoxContainer/ResumeButton")
+quit_button = NodePath("CenterContainer/PanelContainer/VBoxContainer/QuitButton")
 
 [node name="CenterContainer" type="CenterContainer" parent="PauseMenu" unique_id=473358911]
 layout_mode = 1
@@ -273,34 +279,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer" unique_id=1356845189]
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenu/CenterContainer" unique_id=1048397546]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xlvrw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer" unique_id=1356845189]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PauseMenu/CenterContainer/VBoxContainer" unique_id=1743312763]
+[node name="Label" type="Label" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1743312763]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "PAUSED"
 label_settings = SubResource("LabelSettings_ni31j")
 
-[node name="ResumeButton" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer" unique_id=1373276508]
+[node name="ResumeButton" type="Button" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1373276508]
 layout_mode = 2
 text = "RESUME"
 
-[node name="MouseSensitivitySetting" type="VBoxContainer" parent="PauseMenu/CenterContainer/VBoxContainer" unique_id=1745008920 node_paths=PackedStringArray("slider", "input", "player")]
+[node name="MouseSensitivitySetting" type="VBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1745008920 node_paths=PackedStringArray("slider", "input", "player")]
 layout_mode = 2
 script = ExtResource("7_ni31j")
 slider = NodePath("HBoxContainer/HSlider")
 input = NodePath("HBoxContainer/SpinBox")
-player = NodePath("../../../../Player")
+player = NodePath("../../../../../Player")
 
-[node name="Label" type="Label" parent="PauseMenu/CenterContainer/VBoxContainer/MouseSensitivitySetting" unique_id=223968115]
+[node name="Label" type="Label" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MouseSensitivitySetting" unique_id=223968115]
 layout_mode = 2
 text = "Mouse sensitivity"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/CenterContainer/VBoxContainer/MouseSensitivitySetting" unique_id=928694479]
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MouseSensitivitySetting" unique_id=928694479]
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="PauseMenu/CenterContainer/VBoxContainer/MouseSensitivitySetting/HBoxContainer" unique_id=258296591]
+[node name="HSlider" type="HSlider" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MouseSensitivitySetting/HBoxContainer" unique_id=258296591]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -309,7 +319,7 @@ max_value = 10.0
 step = 0.01
 value = 0.01
 
-[node name="SpinBox" type="SpinBox" parent="PauseMenu/CenterContainer/VBoxContainer/MouseSensitivitySetting/HBoxContainer" unique_id=2088989789]
+[node name="SpinBox" type="SpinBox" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/MouseSensitivitySetting/HBoxContainer" unique_id=2088989789]
 layout_mode = 2
 min_value = 0.01
 max_value = 10.0
@@ -317,6 +327,6 @@ step = 0.01
 value = 0.01
 custom_arrow_step = 0.1
 
-[node name="QuitButton" type="Button" parent="PauseMenu/CenterContainer/VBoxContainer" unique_id=1635411788]
+[node name="QuitButton" type="Button" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1635411788]
 layout_mode = 2
 text = "QUIT"
