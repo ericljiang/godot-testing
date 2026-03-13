@@ -3,6 +3,7 @@ class_name Player
 
 @export_group("Nodes")
 @export var head: Node3D
+@export var weapon: Weapon
 
 @export_group("Settings")
 @export_range(0, 10, 0.01) var mouse_sensitivity: float = 1.0
@@ -20,33 +21,27 @@ const MIN_PITCH = -MAX_PITCH
 const DEGREES_PER_UNIT = 0.022
 const RADS_PER_UNIT = deg_to_rad(DEGREES_PER_UNIT)
 
-# Movement parameters
-# 16 HU = 1 ft
-# 1 ft = 0.3048 m
-# x_m = x_hu / 16 * 0.3048 = x_hu * 0.01905
-## Factor to convert Hammer units to meters
-const HU_TO_M := 0.01905
 # https://developer.valvesoftware.com/wiki/List_of_Counter-Strike_2_console_commands_and_variables
-const JUMP_VELOCITY = 301.993 * HU_TO_M
+const JUMP_VELOCITY = 301.993 * Constants.HU_TO_M
 ## https://developer.valvesoftware.com/wiki/Sv_friction
 const FRICTION := 5.2
 enum MovementType { CS, QUAKE, TF2_SOLDIER }
 ## sv_stopspeed
 const STOP_SPEEDS: Dictionary[MovementType, float] = {
-	MovementType.CS: 80 * HU_TO_M,
-	MovementType.QUAKE: 100 * HU_TO_M,
-	MovementType.TF2_SOLDIER: 100 * HU_TO_M,
+	MovementType.CS: 80 * Constants.HU_TO_M,
+	MovementType.QUAKE: 100 * Constants.HU_TO_M,
+	MovementType.TF2_SOLDIER: 100 * Constants.HU_TO_M,
 }
 var STOP_SPEED := STOP_SPEEDS[movement_type]
 const MAX_GROUND_SPEEDS: Dictionary[MovementType, float] = {
 	# https://counterstrike.fandom.com/wiki/Movement#Speed
-	MovementType.CS: 250 * HU_TO_M,
-	MovementType.QUAKE: 320 * HU_TO_M,
+	MovementType.CS: 250 * Constants.HU_TO_M,
+	MovementType.QUAKE: 320 * Constants.HU_TO_M,
 	# https://wiki.teamfortress.com/wiki/Classes#Speed
-	MovementType.TF2_SOLDIER: 240 * HU_TO_M,
+	MovementType.TF2_SOLDIER: 240 * Constants.HU_TO_M,
 }
 var MAX_GROUND_SPEED := MAX_GROUND_SPEEDS[movement_type]
-const MAX_AIR_SPEED := 30 * HU_TO_M
+const MAX_AIR_SPEED := 30 * Constants.HU_TO_M
 ## Accelerate from zero to max speed in 0.1 s
 var MAX_ACCEL := MAX_GROUND_SPEED * 10
 
