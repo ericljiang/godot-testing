@@ -140,10 +140,11 @@ transform = Transform3D(-9.2725855e-08, 9.2725855e-08, -3, 2.1213202, 2.1213202,
 transform = Transform3D(0.53008884, -0.84666574, -0.046508454, -0.35300598, -0.27021822, 0.89575046, -0.7709687, -0.45840958, -0.4421177, 2.2469366, 8.18891, -5.086196)
 shadow_enabled = true
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=83115313 node_paths=PackedStringArray("head", "weapon")]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=83115313 node_paths=PackedStringArray("head", "collision_shape", "weapon")]
 floor_max_angle = 0.7679449
 script = ExtResource("1_ulcgi")
 head = NodePath("Head")
+collision_shape = NodePath("CollisionShape3D")
 weapon = NodePath("RocketLauncher")
 mouse_sensitivity = 0.98
 

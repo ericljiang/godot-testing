@@ -14,15 +14,15 @@ script = ExtResource("1_fj03e")
 splash_area = NodePath("Area3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1893656798]
-transform = Transform3D(0.3, 0, 0, 0, -1.3113417e-08, 0.3, 0, -0.3, -1.3113417e-08, 0, 0, 0)
+transform = Transform3D(0.2, 0, 0, 0, -8.742278e-09, 0.2, 0, -0.2, -8.742278e-09, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_ww0uh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=395249432]
-transform = Transform3D(0.3, 0, 0, 0, -1.3113417e-08, 0.3, 0, -0.3, -1.3113417e-08, 0, 0, 0)
+transform = Transform3D(0.2, 0, 0, 0, -8.742278e-09, 0.2, 0, -0.2, -8.742278e-09, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_fj03e")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1656403318]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=32274773]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
 shape = SubResource("SphereShape3D_fj03e")

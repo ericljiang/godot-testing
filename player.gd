@@ -3,6 +3,7 @@ class_name Player
 
 @export_group("Nodes")
 @export var head: Node3D
+@export var collision_shape: CollisionShape3D
 @export var weapon: Weapon
 
 @export_group("Settings")
@@ -47,6 +48,7 @@ var MAX_ACCEL := MAX_GROUND_SPEED * 10
 
 func _ready() -> void:
 	assert(head != null, "ERROR: `head` not assigned a node value.");
+	assert(collision_shape != null)
 	Input.set_use_accumulated_input(false)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
