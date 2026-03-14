@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bgvhydca1egeo" path="res://rocket_launcher.gd" id="4_73fnb"]
 [ext_resource type="Script" uid="uid://cnokv2ftd46ld" path="res://mouse_sensitivity_setting.gd" id="7_ni31j"]
 [ext_resource type="Script" uid="uid://b0o4v4h7mk8eo" path="res://pause_menu.gd" id="7_xlvrw"]
+[ext_resource type="Script" uid="uid://qgow2upvt73w" path="res://window_mode_option_button.gd" id="8_5juve"]
 [ext_resource type="Script" uid="uid://cjldmdedgf535" path="res://movement_type_option_button.gd" id="9_73fnb"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_drvgu"]
@@ -168,11 +169,11 @@ root = NodePath("../..")
 player = NodePath("..")
 head = NodePath("../Head")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1679698098]
+[node name="PerformanceOverlayContainer" type="VBoxContainer" parent="." unique_id=1679698098]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PerformanceOverlay" type="Label" parent="VBoxContainer" unique_id=1478559351]
+[node name="PerformanceOverlay" type="Label" parent="PerformanceOverlayContainer" unique_id=1478559351]
 layout_mode = 2
 script = ExtResource("2_nxogm")
 
@@ -241,6 +242,23 @@ text = "RESUME"
 
 [node name="HSeparator" type="HSeparator" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1093617910]
 layout_mode = 2
+
+[node name="WindowModeSetting" type="VBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=442956316]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/WindowModeSetting" unique_id=835786654]
+layout_mode = 2
+text = "Window mode"
+
+[node name="OptionButton" type="OptionButton" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer/WindowModeSetting" unique_id=659577591]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+script = ExtResource("8_5juve")
 
 [node name="MouseSensitivitySetting" type="VBoxContainer" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1745008920 node_paths=PackedStringArray("slider", "input", "player")]
 layout_mode = 2
