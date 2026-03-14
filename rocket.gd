@@ -19,15 +19,18 @@ func _physics_process(delta: float) -> void:
 				# TODO: consider further refinements to match TF2
 				# - At time of explosion, move the rocket 1 Hammer unit away
 				#   from the colliding surface and 10 Hammer units down. Use
-				#   this new position as the origin of the explosion
+				#   this new position as the origin of the explosion (DONE)
 				# - Increase knockback force when crouching
 				# - Increase knockback force when in the air
 				# - Mimic TF2's damage/knockback falloff calculation
 				# - Lower knockback force for enemies, 0 knockback for allies
 				# https://www.reddit.com/r/truetf2/comments/ogqho6/comment/h4ls374/
 				# http://archive.today/2026.03.13-054427/https://www.reddit.com/r/truetf2/comments/ogqho6/how_does_rocket_jumping_work_from_a_technical/h4ls374/ 
-				var player_center := player.collision_shape.global_position 
-				var knockback_direction := self.global_position.direction_to(player_center)
+				var knockback_center := self.global_position \
+					+ collision.get_normal() * Constants.HU_TO_M \
+					+ Vector3.DOWN * 10 * Constants.HU_TO_M
+				var player_center := player.collision_shape.global_position
+				var knockback_direction := knockback_center.direction_to(player_center)
 				var distance := self.global_position.distance_to(player_center)
 				var splash_area_radius := splash_area.scale.x / 2.0
 				player.velocity += KNOCKBACK * knockback_direction * (splash_area_radius - distance)
