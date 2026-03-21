@@ -10,7 +10,6 @@ func get_attack_interval() -> float:
 	return 800
 
 func fire() -> void:
-	print("firing rocket")
 	var rocket: CharacterBody3D = rocket_scene.instantiate()
 	rocket.position = head.global_position 
 	rocket.basis = head.global_basis
