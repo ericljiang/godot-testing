@@ -2,16 +2,49 @@
 
 [ext_resource type="Script" uid="uid://cp0hly3y356b" path="res://rocket.gd" id="1_fj03e"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5gt1y"]
+albedo_color = Color(0.06303825, 0.06303826, 0.06303825, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ww0uh"]
+material = SubResource("StandardMaterial3D_5gt1y")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fj03e"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fj03e"]
 
-[node name="Rocket" type="CharacterBody3D" unique_id=55916072 node_paths=PackedStringArray("splash_area")]
+[sub_resource type="Curve" id="Curve_fj03e"]
+_data = [Vector2(0, 0.49569833), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5gt1y"]
+curve = SubResource("Curve_fj03e")
+
+[sub_resource type="Curve" id="Curve_5gt1y"]
+_data = [Vector2(0, 0.25574845), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r2l15"]
+curve = SubResource("Curve_5gt1y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fj03e"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_r2l15")
+alpha_curve = SubResource("CurveTexture_5gt1y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fj03e"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_5gt1y"]
+material = SubResource("StandardMaterial3D_fj03e")
+
+[node name="Rocket" type="CharacterBody3D" unique_id=55916072 node_paths=PackedStringArray("splash_area", "particle_system", "mesh")]
 collision_layer = 2
 script = ExtResource("1_fj03e")
 splash_area = NodePath("Area3D")
+particle_system = NodePath("GPUParticles3D")
+mesh = NodePath("MeshInstance3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1893656798]
 transform = Transform3D(0.2, 0, 0, 0, -8.742278e-09, 0.2, 0, -0.2, -8.742278e-09, 0, 0, 0)
@@ -26,3 +59,9 @@ transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=32274773]
 shape = SubResource("SphereShape3D_fj03e")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=196088752]
+amount = 64
+fixed_fps = 120
+process_material = SubResource("ParticleProcessMaterial_fj03e")
+draw_pass_1 = SubResource("SphereMesh_5gt1y")

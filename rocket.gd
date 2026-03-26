@@ -4,15 +4,19 @@ const ROCKET_SPEED = 1100 * Constants.HU_TO_M
 const KNOCKBACK = 5
 
 @export var splash_area: Area3D
+@export var particle_system: GPUParticles3D
+@export var mesh: MeshInstance3D
 
 func _ready() -> void:
 	assert(splash_area != null)
+	assert(particle_system != null)
+	assert(mesh != null)
 	self.velocity = self.basis * Vector3.FORWARD * ROCKET_SPEED
 
 func _physics_process(delta: float) -> void:
 	var collision := move_and_collide(velocity * delta)
 	if collision:
-		queue_free()
+		delete_rocket()
 		for body in splash_area.get_overlapping_bodies():
 			if (body is Player):
 				var player: Player = body
@@ -37,4 +41,10 @@ func _physics_process(delta: float) -> void:
 	elif self.global_position.distance_to(Vector3.ZERO) > 100:
 		# Delete rocket if it gets too far away (prevent rockets fired into the
 		# air from going forever)
-		queue_free()
+		delete_rocket()
+
+func delete_rocket() -> void:
+	mesh.hide()
+	particle_system.amount_ratio = 0
+	await get_tree().create_timer(particle_system.lifetime).timeout
+	queue_free()
