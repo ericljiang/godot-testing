@@ -3,16 +3,18 @@ extends Control
 @export var resume_button: Button
 @export var quit_button: Button
 
+
 func _ready() -> void:
 	assert(resume_button != null)
 	assert(quit_button != null)
-	
+
 	resume_button.pressed.connect(unpause)
 	quit_button.pressed.connect(quit)
-	
+
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	resume_button.text += " (%s)" % InputMap.action_get_events("ui_cancel")[0].as_text()
-	
 	unpause()
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -21,13 +23,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			pause()
 
+
 func pause() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	get_tree().paused = true
 	show()
+
 
 func unpause() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	get_tree().paused = false
 	hide()
+
 
 func quit() -> void:
 	get_tree().quit()
