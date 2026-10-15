@@ -64,6 +64,11 @@ expand_margin_bottom = 20.0
 [sub_resource type="LabelSettings" id="LabelSettings_ni31j"]
 font_size = 44
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5juve"]
+size = Vector3(0.4, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fy5k1"]
+
 [node name="Root" type="Node3D" unique_id=1104902297]
 
 [node name="Terrain" type="Node" parent="." unique_id=1600461140]
@@ -320,3 +325,30 @@ layout_mode = 2
 [node name="QuitButton" type="Button" parent="PauseMenu/CenterContainer/PanelContainer/VBoxContainer" unique_id=1635411788]
 layout_mode = 2
 text = "QUIT"
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1288952146]
+transform = Transform3D(0.9947476, 0.102358505, 0, -0.102358505, 0.9947476, 0, 0, 0, 1, 0, 3.2573545, -4.8154755)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Node3D" unique_id=242286033]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50000006, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D" unique_id=1057732445]
+shape = SubResource("BoxShape3D_5juve")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D" unique_id=445679]
+transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fy5k1")
+
+[node name="HingeJoint3D" type="HingeJoint3D" parent="Node3D" unique_id=978904387]
+node_a = NodePath("../RigidBody3D")
+node_b = NodePath("../RigidBody3D2")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="Node3D" unique_id=310752944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/RigidBody3D2" unique_id=1801111944]
+shape = SubResource("BoxShape3D_5juve")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/RigidBody3D2" unique_id=429620486]
+transform = Transform3D(0.4, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_fy5k1")
